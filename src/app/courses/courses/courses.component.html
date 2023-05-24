@@ -1,3 +1,11 @@
+
+<p class="toolbar">
+  <mat-toolbar color="primary">
+    Courses Availables
+  </mat-toolbar>
+</p>
+
+<mat-card>
 <table mat-table [dataSource]="courses" class="mat-elevation-z8">
 
   <!-- Name Column -->
@@ -15,3 +23,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</mat-card>

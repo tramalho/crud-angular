@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Course } from '../model/course';
-import { delay, first, tap } from 'rxjs';
+import { Observable, catchError, delay, first, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  private readonly API = "/assets/courses.json"
+  private readonly API = "/assets/acourses.json"
 
   constructor(private httpClient: HttpClient) { }
 

@@ -10,3 +10,11 @@ mat-card {
 .toolbar {
   margin: 10px 10px 0px 10px;
 }
+
+.loading-spinner {
+  padding: 25px;
+  //background: rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,4 +1,6 @@
 [
   {"_id": "1", "name": "Angular", "category": "Front-End"},
-  {"_id": "2", "name": "Java", "category": "Backend"}
+  {"_id": "2", "name": "Java", "category": "Back-End"},
+  {"_id": "3", "name": "MySQL", "category": "DataBase"},
+  {"_id": "4", "name": "Android", "category": "Mobile"}
 ]

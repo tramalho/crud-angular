@@ -1,12 +1,12 @@
 <p class="toolbar">
   <mat-toolbar color="primary">
-    Courses Availables
+    Available Courses
   </mat-toolbar>
 </p>
 
 <mat-card>
   <div *ngIf="courses$ | async as courses; else loading">
-    <table mat-table [dataSource]="courses" class="mat-elevation-z8">
+    <table aria-describedby="Available Courses" mat-table [dataSource]="courses" class="mat-elevation-z8">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">

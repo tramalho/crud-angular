@@ -1,10 +1,7 @@
-<p class="toolbar">
-  <mat-toolbar color="primary">
-    Available Courses
-  </mat-toolbar>
-</p>
+<mat-card class="surface-card">
 
-<mat-card>
+  <mat-toolbar color="primary">Course Details</mat-toolbar>
+
   <div *ngIf="courses$ | async as courses; else loading">
     <table aria-describedby="Available Courses" mat-table [dataSource]="courses" class="mat-elevation-z8">
 
@@ -50,5 +47,4 @@
       <mat-spinner></mat-spinner>
     </div>
   </ng-template>
-
 </mat-card>

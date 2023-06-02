@@ -20,4 +20,8 @@ export class CoursesService {
       tap(courses => console.log("results: "+ courses))
     );
   }
+
+  save(course: Course) {
+    return this.httpClient.post(this.API, course)
+  }
 }

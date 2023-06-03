@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CoursesService } from './../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-course-form',
@@ -16,7 +17,8 @@ export class CourseFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private courseService: CoursesService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private location: Location) {
     this.formGroup = this.formBuilder.group( {
       name: '',
       category: ''
@@ -24,17 +26,28 @@ export class CourseFormComponent {
   }
 
   onCancel() {
-    throw new Error('Method not implemented.');
-    }
+    this.location.back()
+  }
+
     onSubmit() {
       this.courseService.save(this.formGroup.value).subscribe( {
-        error: (e) => { this.onError() },
-        complete: () => console.info(this)
+        error: (e) => this.onError(),
+        complete: () => this.onSuccess()
       }
   )
     }
 
+    private onSuccess() {
+      this.showSnackBar("Success saving data.")
+      this.onCancel()
+    }
+
     private onError() {
-      this.snackBar.open("Error saving data.", "", {duration: 1000})
+      this.showSnackBar("Error saving data.")
+
+    }
+
+    private showSnackBar(message: string) {
+      this.snackBar.open(message, "", {duration: 1000})
     }
 }

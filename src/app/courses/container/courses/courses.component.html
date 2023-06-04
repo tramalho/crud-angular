@@ -5,7 +5,7 @@
   <div class="column-flex">
     <app-courses-list
     *ngIf="courses$ | async as courses; else loading"
-    [courses]="courses"></app-courses-list>
+    [courses]="courses" (add)="onAdd()"></app-courses-list>
   </div>
 
   <ng-template #loading>

@@ -23,7 +23,7 @@
     </mat-header-cell>
 
     <mat-cell *matCellDef="let course" class="action-column">
-      <button mat-icon-button color="accent" aria-label="edit">
+      <button mat-icon-button color="accent" aria-label="edit" (click)="onEdit(course)">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button color="warn" aria-label="delete">

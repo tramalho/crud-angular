@@ -1,7 +1,7 @@
 import { CoursesService } from '../../services/courses.service';
 import { Component } from '@angular/core';
 import { Course } from '../../model/course';
-import { Observable, catchError, delay, first, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,9 +36,17 @@ export class CoursesComponent {
   }
 
   onAdd() {
-    this.router.navigate(['new'], {relativeTo: this.activatedRoute})
-    .catch(error => {
-      console.log(error)
-  });
+    this.navigate(['new']);
+  }
+
+  onEdit(course: Course) {
+    this.navigate(['edit', course._id]);
+  }
+
+  private navigate(commands: any[]) {
+    this.router.navigate(commands, { relativeTo: this.activatedRoute })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }

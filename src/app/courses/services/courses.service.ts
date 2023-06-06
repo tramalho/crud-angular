@@ -25,4 +25,9 @@ export class CoursesService {
   save(course: Course) {
     return this.httpClient.post(this.API, course)
   }
+
+  loadById(id: string) {
+    return this.httpClient.get<Course>(`${this.API}/${id}`)
+  }
+
 }

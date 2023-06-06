@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -13,16 +15,24 @@ import { Location } from '@angular/common';
 export class CourseFormComponent {
 
   formGroup: FormGroup;
+  private course: Course;
 
   constructor(
     private formBuilder: FormBuilder,
     private courseService: CoursesService,
     private snackBar: MatSnackBar,
-    private location: Location) {
+    private location: Location,
+    private route: ActivatedRoute) {
+
+    this.course = this.route.snapshot.data["course"]
+
     this.formGroup = this.formBuilder.group( {
-      name: '',
-      category: ''
+      _id: this.course._id,
+      name: this.course.name,
+      category: this.course.category
     });
+
+    console.log(this.course)
   }
 
   onCancel() {

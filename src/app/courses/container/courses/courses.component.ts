@@ -36,7 +36,10 @@ export class CoursesComponent {
   }
 
   onAdd() {
-    this.navigate(['new']);
+    this.router.navigate(["new"], { relativeTo: this.activatedRoute })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   onEdit(course: Course) {

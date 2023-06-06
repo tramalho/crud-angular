@@ -1,11 +1,11 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 import { CoursesService } from '../../services/courses.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { Course } from '../../model/course';
+import { Course } from './../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -25,6 +25,8 @@ export class CourseFormComponent {
     private route: ActivatedRoute) {
 
     this.course = this.route.snapshot.data["course"]
+
+    console.log(this.course)
 
     this.formGroup = this.formBuilder.group( {
       _id: this.course._id,

@@ -23,6 +23,11 @@ export class CoursesService {
   }
 
   save(course: Course) {
+
+    if(course._id) {
+      return this.update(course)
+    }
+
     return this.httpClient.post(this.API, course)
   }
 
@@ -30,4 +35,7 @@ export class CoursesService {
     return this.httpClient.get<Course>(`${this.API}/${id}`)
   }
 
+  private update(course: Course) {
+    return this.httpClient.put<Course>(`${this.API}/${course._id}`, course)
+  }
 }

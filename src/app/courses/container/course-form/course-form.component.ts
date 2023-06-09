@@ -41,13 +41,13 @@ export class CourseFormComponent {
     this.location.back()
   }
 
-    onSubmit() {
-      this.courseService.save(this.formGroup.value).subscribe( {
-        error: (e) => this.onError(),
-        complete: () => this.onSuccess()
+  onSubmit() {
+    this.courseService.save(this.formGroup.value).subscribe( {
+      error: (e) => this.onError(),
+      complete: () => this.onSuccess()
       }
-  )
-    }
+    )
+  }
 
     private onSuccess() {
       this.showSnackBar("Success saving data.")

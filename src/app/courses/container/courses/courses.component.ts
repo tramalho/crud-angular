@@ -5,6 +5,7 @@ import { Observable, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -13,17 +14,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CoursesComponent {
 
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
 
   constructor(
     private coursesService: CoursesService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,
     private activatedRoute: ActivatedRoute
     ) {
-    this.courses$ = coursesService.list().pipe(
+    this.refresh();
+  }
+
+  private refresh() {
+    this.courses$ = this.coursesService.list().pipe(
       catchError((error) => {
-        this.onError("error on load courses")
+        this.onError("error on load courses");
         return of([]);
       })
     );
@@ -46,10 +52,32 @@ export class CoursesComponent {
     this.navigate(['edit', course._id]);
   }
 
+  onDelete(course: Course) {
+    this.coursesService.delete(course).subscribe( {
+      error: (e) => this.onError("Error deleting data."),
+      complete: () => this.onDeleteSuccess()
+      }
+    );
+  }
+
   private navigate(commands: any[]) {
     this.router.navigate(commands, { relativeTo: this.activatedRoute })
       .catch(error => {
         console.log(error);
       });
+  }
+
+  private onDeleteSuccess() {
+    this.refresh()
+    this.showSnackBar("Success deleting data.")
+  }
+
+  private showSnackBar(message: string) {
+    this.snackBar.open(message, "x", {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    }
+    )
   }
 }

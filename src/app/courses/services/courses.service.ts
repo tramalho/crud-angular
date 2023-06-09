@@ -17,7 +17,6 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.API)
     .pipe(
       first(),
-      delay(2000),
       tap(courses => console.log("results: "+ courses))
     );
   }
@@ -33,6 +32,10 @@ export class CoursesService {
 
   loadById(id: string) {
     return this.httpClient.get<Course>(`${this.API}/${id}`)
+  }
+
+  delete(course: Course) {
+    return this.httpClient.delete(`${this.API}/${course._id}`)
   }
 
   private update(course: Course) {

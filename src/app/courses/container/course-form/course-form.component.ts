@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
@@ -30,11 +30,32 @@ export class CourseFormComponent {
 
     this.formGroup = this.formBuilder.group( {
       _id: this.course._id,
-      name: this.course.name,
-      category: this.course.category
+      name: new FormControl(this.course.name,
+        [Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)]),
+      category: new FormControl(this.course.category, [
+        Validators.required
+      ])
     });
 
     console.log(this.course)
+  }
+
+  getErrorMessage(fieldName: string) {
+    const field = this.formGroup.get(fieldName)
+
+    if(field?.hasError('minlength')) {
+      const requiredLength = field.errors ? field.errors["minlength"]["requiredLength"] : 3;
+      return `Min length chars is ${requiredLength}`;
+    }
+
+    if(field?.hasError('maxlength')) {
+      const requiredLength = field.errors ? field.errors["maxlength"]["requiredLength"] : 100;
+      return `Max length chars is ${requiredLength}`;
+    }
+
+    return "Required field";
   }
 
   onCancel() {

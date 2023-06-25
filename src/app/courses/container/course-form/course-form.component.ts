@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CoursesService } from '../../services/courses.service';
 import { Course } from './../../model/course';
+import { Lesson } from '../../model/lesson';
 
 @Component({
   selector: 'app-course-form',
@@ -36,7 +37,8 @@ export class CourseFormComponent {
         Validators.maxLength(100)]),
       category: new FormControl(this.course.category, [
         Validators.required
-      ])
+      ]),
+      lessons: this.formBuilder.array(this.retrieveLessons(this.course))
     });
 
     console.log(this.course)
@@ -82,5 +84,25 @@ export class CourseFormComponent {
 
     private showSnackBar(message: string) {
       this.snackBar.open(message, "", {duration: 1000})
+    }
+
+    private createLesson(lesson: Lesson = { id: "", name: "", url: ""} ) {
+      return this.formBuilder.group({
+        id: lesson.id,
+        name: lesson.name,
+        url: lesson.url
+      })
+    }
+
+    private retrieveLessons(course: Course) {
+        const lessons = []
+
+        if(course?.lessons) {
+          course.lessons.forEach( l => lessons.push(this.createLesson(l)))
+        } else {
+          lessons.push(this.createLesson())
+        }
+
+        return lessons
     }
 }
